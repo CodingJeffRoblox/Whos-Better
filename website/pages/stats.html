@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard - Who's Better?</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Statistics - Who's Better?</title>
+    <link rel="stylesheet" href="../../styles.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -25,8 +25,8 @@
                 <a href="trending.html" class="nav-link">Trending</a>
                 <a href="hall-of-fame.html" class="nav-link">Hall of Fame</a>
                 <a href="hall-of-shame.html" class="nav-link">Hall of Shame</a>
-                <a href="stats.html" class="nav-link">Stats</a>
-                <a href="leaderboard.html" class="nav-link active">Leaderboard</a>
+                <a href="stats.html" class="nav-link active">Stats</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
                 <a href="support.html" class="nav-link" id="supportLink" style="display: none;">Support</a>
                 <a href="admin.html" class="nav-link" id="adminLink" style="display: none;">Admin</a>
             </div>
@@ -50,14 +50,43 @@
     </nav>
 
     <main class="main-content">
-        <h1 class="hero-title">🏆 Leaderboard</h1>
-        <p class="hero-subtitle">Compete with other voters</p>
+        <h1 class="hero-title">Your Statistics</h1>
+        <p class="hero-subtitle">Track your voting journey</p>
         
-        <div class="leaderboard-container" id="leaderboardContainer">
-            <div class="loading-spinner">Loading leaderboard...</div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-value" id="statTotalVotes">0</div>
+                <div class="stat-card-label">Total Votes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value" id="statXP">0</div>
+                <div class="stat-card-label">XP Earned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value" id="statLevel">1</div>
+                <div class="stat-card-label">Current Level</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value" id="statBadges">0</div>
+                <div class="stat-card-label">Badges Earned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value" id="statStreak">0</div>
+                <div class="stat-card-label">Day Streak</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value" id="statFavorite">-</div>
+                <div class="stat-card-label">Favorite Category</div>
+            </div>
         </div>
+        
+        <h2 class="section-title">Category Breakdown</h2>
+        <div class="stats-grid" id="categoryStats"></div>
+        
+        <h2 class="section-title">Your Achievements</h2>
+        <div class="achievements-grid" id="achievementsGrid"></div>
     </main>
 
-    <script src="../js/leaderboard.js"></script>
+    <script src="../js/stats.js"></script>
 </body>
 </html>

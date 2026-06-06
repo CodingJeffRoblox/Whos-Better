@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hall of Fame - Who's Better?</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Trending - Who's Better?</title>
+    <link rel="stylesheet" href="../../styles.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -22,8 +22,8 @@
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="rankings.html" class="nav-link">Rankings</a>
-                <a href="trending.html" class="nav-link">Trending</a>
-                <a href="hall-of-fame.html" class="nav-link active">Hall of Fame</a>
+                <a href="trending.html" class="nav-link active">Trending</a>
+                <a href="hall-of-fame.html" class="nav-link">Hall of Fame</a>
                 <a href="hall-of-shame.html" class="nav-link">Hall of Shame</a>
                 <a href="stats.html" class="nav-link">Stats</a>
                 <a href="leaderboard.html" class="nav-link">Leaderboard</a>
@@ -50,12 +50,27 @@
     </nav>
 
     <main class="main-content">
-        <h1 class="hero-title">🏆 Hall of Fame</h1>
-        <p class="hero-subtitle">The top 25 highest rated items</p>
+        <h1 class="hero-title">Trending</h1>
+        <p class="hero-subtitle">What's hot right now</p>
         
-        <div class="hall-grid" id="hallOfFame"></div>
+        <div class="trending-sections">
+            <div class="trending-section">
+                <h2 class="section-title">🔥 Most Voted</h2>
+                <div class="hall-grid" id="mostVoted"></div>
+            </div>
+            
+            <div class="trending-section">
+                <h2 class="section-title">📈 Fastest Growing</h2>
+                <div class="hall-grid" id="fastestGrowing"></div>
+            </div>
+            
+            <div class="trending-section">
+                <h2 class="section-title">⚡ Most Controversial</h2>
+                <div class="hall-grid" id="mostControversial"></div>
+            </div>
+        </div>
     </main>
 
-    <script src="../js/hall-of-fame.js"></script>
+    <script src="../js/trending.js"></script>
 </body>
 </html>
