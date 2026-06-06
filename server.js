@@ -1,12 +1,25 @@
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
-const serviceAccount = require('./service-account-key.json');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Initialize Firebase Admin
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  // Use environment variable for production
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+} else {
+  // Use local file for development
+  try {
+    serviceAccount = require('./service-account-key.json');
+  } catch (err) {
+    console.error('Firebase service account key not found. Please set FIREBASE_SERVICE_ACCOUNT environment variable or provide service-account-key.json file.');
+    process.exit(1);
+  }
+}
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://who-s-better-27d26-default-rtdb.firebaseio.com/'
