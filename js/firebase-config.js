@@ -145,7 +145,7 @@ function updateAdminUI() {
 }
 
 // Server API functions
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'https://whos-better.onrender.com';
 
 async function getAuthToken() {
     if (!currentUser) return null;
