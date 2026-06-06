@@ -28,6 +28,9 @@ const db = admin.database();
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from website folder
+app.use(express.static('website'));
+
 // Middleware to verify Firebase ID token
 async function verifyToken(req, res, next) {
     const authHeader = req.headers.authorization;
