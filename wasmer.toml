@@ -18,7 +18,7 @@ cpus = 1
 # Firebase configuration
 FIREBASE_API_KEY = "AIzaSyBSG1gnnUC0M77KL39zqWsetfnjnBaVJng"
 FIREBASE_AUTH_DOMAIN = "who-s-better-27d26.firebaseapp.com"
-FIREBASE_DATABASE_URL = "https://who-s-better-27d26-default-rtdb.firebaseio.com"
+FIREBASE_DATABASE_URL = "https://who-s-better-27d26-default-rtdb.firebaseio.com/"
 FIREBASE_PROJECT_ID = "who-s-better-27d26"
 FIREBASE_STORAGE_BUCKET = "who-s-better-27d26.firebasestorage.app"
 FIREBASE_MESSAGING_SENDER_ID = "583497129419"
