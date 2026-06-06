@@ -1,0 +1,32 @@
+[package]
+name = "whos-better"
+version = "1.0.0"
+description = "Who's Better voting app"
+
+[dependencies]
+
+[[bin]]
+name = "whos-better"
+path = "server.js"
+
+[deployment]
+# Wasmer deployment configuration
+memory = "512Mi"
+cpus = 1
+
+[environment]
+# Firebase configuration
+FIREBASE_API_KEY = "AIzaSyBSG1gnnUC0M77KL39zqWsetfnjnBaVJng"
+FIREBASE_AUTH_DOMAIN = "who-s-better-27d26.firebaseapp.com"
+FIREBASE_DATABASE_URL = "https://who-s-better-27d26-default-rtdb.firebaseio.com"
+FIREBASE_PROJECT_ID = "who-s-better-27d26"
+FIREBASE_STORAGE_BUCKET = "who-s-better-27d26.firebasestorage.app"
+FIREBASE_MESSAGING_SENDER_ID = "583497129419"
+FIREBASE_APP_ID = "1:583497129419:web:9d3216501c9741b6486a4e"
+FIREBASE_MEASUREMENT_ID = "G-FMR841X7XC"
+FIREBASE_CLIENT_EMAIL = "firebase-adminsdk-fbsvc@who-s-better-27d26.iam.gserviceaccount.com"
+# Note: FIREBASE_PRIVATE_KEY needs to be set in Wasmer dashboard for security
+
+[interface]
+# Expose the server on port 3001
+command = "node server.js"
