@@ -5,24 +5,21 @@ const admin = require('firebase-admin');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Initialize Firebase Admin
-let serviceAccount;
-if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-  // Use environment variable for production
-  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-} else {
-  // Use local file for development
-  try {
-    serviceAccount = require('./service-account-key.json');
-  } catch (err) {
-    console.error('Firebase service account key not found. Please set FIREBASE_SERVICE_ACCOUNT environment variable or provide service-account-key.json file.');
-    process.exit(1);
-  }
+// Initialize Firebase Admin with environment variables
+const serviceAccount = {
+  projectId: process.env.FIREBASE_PROJECT_ID || 'who-s-better-27d26',
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY ? process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined
+};
+
+if (!serviceAccount.clientEmail || !serviceAccount.privateKey) {
+  console.error('Firebase Admin credentials not found. Please set FIREBASE_CLIENT_EMAIL and FIREBASE_PRIVATE_KEY environment variables.');
+  process.exit(1);
 }
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://who-s-better-27d26-default-rtdb.firebaseio.com/'
+  databaseURL: process.env.FIREBASE_DATABASE_URL || 'https://who-s-better-27d26-default-rtdb.firebaseio.com/'
 });
 
 const db = admin.database();
