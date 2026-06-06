@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Who's Better?</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">Who's Better?</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="rankings.html" class="nav-link">Rankings</a>
+                <a href="trending.html" class="nav-link">Trending</a>
+                <a href="hall-of-fame.html" class="nav-link">Hall of Fame</a>
+                <a href="hall-of-shame.html" class="nav-link">Hall of Shame</a>
+                <a href="stats.html" class="nav-link">Stats</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h1 class="auth-title">Create Account</h1>
+                <p class="auth-subtitle">Join the battle!</p>
+                
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-input" placeholder="Choose a username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Create a password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-button">Sign Up</button>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                
+                <button id="googleSignup" class="auth-button google-button">
+                    <span class="google-icon">G</span>
+                    Continue with Google
+                </button>
+                
+                <p class="auth-footer">
+                    Already have an account? <a href="login.html" class="auth-link">Login</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <div class="error-popup" id="errorPopup"></div>
+
+    <script src="../js/auth.js"></script>
+</body>
+</html>

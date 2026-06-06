@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Chat - Who's Better?</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">Who's Better?</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="rankings.html" class="nav-link">Rankings</a>
+                <a href="trending.html" class="nav-link">Trending</a>
+                <a href="hall-of-fame.html" class="nav-link">Hall of Fame</a>
+                <a href="hall-of-shame.html" class="nav-link">Hall of Shame</a>
+                <a href="stats.html" class="nav-link">Stats</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                <a href="support.html" class="nav-link active" id="supportLink" style="display: none;">Support</a>
+                <a href="admin.html" class="nav-link" id="adminLink" style="display: none;">Admin</a>
+            </div>
+            <div class="auth-section" id="authSection">
+                <a href="login.html" class="nav-link auth-link">Login</a>
+                <a href="signup.html" class="nav-link auth-link">Sign Up</a>
+            </div>
+            <div class="profile-card" id="profileCard" style="display: none;">
+                <div class="profile-info">
+                    <div class="profile-username" id="username">User</div>
+                    <div class="profile-level">Level <span id="userLevel">1</span></div>
+                    <div class="profile-xp"><span id="userXP">0</span> XP</div>
+                </div>
+                <div class="profile-streak">
+                    <span class="streak-icon">🔥</span>
+                    <span id="userStreak">0</span> Day Streak
+                </div>
+                <button class="logout-button" id="logoutButton">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="chat-container">
+            <div class="chat-header">
+                <button class="back-button" onclick="window.location.href='support.html'">← Back</button>
+                <div class="chat-info">
+                    <h2 class="chat-title" id="chatTitle">Support Chat</h2>
+                    <div class="chat-subtitle" id="chatSubtitle"></div>
+                </div>
+                ${isAdmin ? '<button class="close-ticket-button" id="closeTicket">Close Ticket</button>' : ''}
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="loading-spinner">Loading messages...</div>
+            </div>
+            
+            <div class="chat-input-area">
+                <textarea id="messageInput" class="chat-input" placeholder="Type your message..." rows="3"></textarea>
+                <button class="send-button" id="sendMessage">Send</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/support-chat.js"></script>
+</body>
+</html>

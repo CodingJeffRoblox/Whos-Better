@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Who's Better?</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">Who's Better?</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="rankings.html" class="nav-link">Rankings</a>
+                <a href="trending.html" class="nav-link">Trending</a>
+                <a href="hall-of-fame.html" class="nav-link">Hall of Fame</a>
+                <a href="hall-of-shame.html" class="nav-link">Hall of Shame</a>
+                <a href="stats.html" class="nav-link">Stats</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                <a href="support.html" class="nav-link" id="supportLink" style="display: none;">Support</a>
+                <a href="admin.html" class="nav-link active" id="adminLink" style="display: none;">Admin</a>
+            </div>
+            <div class="auth-section" id="authSection">
+                <a href="login.html" class="nav-link auth-link">Login</a>
+                <a href="signup.html" class="nav-link auth-link">Sign Up</a>
+            </div>
+            <div class="profile-card" id="profileCard" style="display: none;">
+                <div class="profile-info">
+                    <div class="profile-username" id="username">User</div>
+                    <div class="profile-level">Level <span id="userLevel">1</span></div>
+                    <div class="profile-xp"><span id="userXP">0</span> XP</div>
+                </div>
+                <div class="profile-streak">
+                    <span class="streak-icon">🔥</span>
+                    <span id="userStreak">0</span> Day Streak
+                </div>
+                <button class="logout-button" id="logoutButton">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 class="hero-title">🛡️ Admin Dashboard</h1>
+        <p class="hero-subtitle">Manage users and support tickets</p>
+        
+        <div class="admin-dashboard">
+            <div class="admin-stats">
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value" id="totalUsers">0</div>
+                    <div class="admin-stat-label">Total Users</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value" id="activeUsers">0</div>
+                    <div class="admin-stat-label">Active Users</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value" id="bannedUsers">0</div>
+                    <div class="admin-stat-label">Banned Users</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value" id="suspendedUsers">0</div>
+                    <div class="admin-stat-label">Suspended Users</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value" id="openTickets">0</div>
+                    <div class="admin-stat-label">Open Tickets</div>
+                </div>
+            </div>
+            
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="users">Users</button>
+                <button class="admin-tab" data-tab="tickets">Support Tickets</button>
+            </div>
+            
+            <div class="admin-tab-content" id="usersTab">
+                <div class="admin-controls">
+                    <input type="text" class="search-box" id="userSearch" placeholder="Search users...">
+                    <select class="filter-select" id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                        <option value="banned">Banned</option>
+                    </select>
+                </div>
+                <div class="users-table" id="usersTable">
+                    <div class="loading-spinner">Loading users...</div>
+                </div>
+            </div>
+            
+            <div class="admin-tab-content" id="ticketsTab" style="display: none;">
+                <div class="tickets-list" id="ticketsList">
+                    <div class="loading-spinner">Loading tickets...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="userModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Management</h3>
+                <button class="modal-close" id="closeUserModal">&times;</button>
+            </div>
+            <div class="modal-body" id="userModalBody"></div>
+        </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

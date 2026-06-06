@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Who's Better?</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">Who's Better?</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="rankings.html" class="nav-link">Rankings</a>
+                <a href="trending.html" class="nav-link">Trending</a>
+                <a href="hall-of-fame.html" class="nav-link">Hall of Fame</a>
+                <a href="hall-of-shame.html" class="nav-link">Hall of Shame</a>
+                <a href="stats.html" class="nav-link">Stats</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                <a href="support.html" class="nav-link active" id="supportLink" style="display: none;">Support</a>
+                <a href="admin.html" class="nav-link" id="adminLink" style="display: none;">Admin</a>
+            </div>
+            <div class="auth-section" id="authSection">
+                <a href="login.html" class="nav-link auth-link">Login</a>
+                <a href="signup.html" class="nav-link auth-link">Sign Up</a>
+            </div>
+            <div class="profile-card" id="profileCard" style="display: none;">
+                <div class="profile-info">
+                    <div class="profile-username" id="username">User</div>
+                    <div class="profile-level">Level <span id="userLevel">1</span></div>
+                    <div class="profile-xp"><span id="userXP">0</span> XP</div>
+                </div>
+                <div class="profile-streak">
+                    <span class="streak-icon">🔥</span>
+                    <span id="userStreak">0</span> Day Streak
+                </div>
+                <button class="logout-button" id="logoutButton">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 class="hero-title">💬 Support Center</h1>
+        <p class="hero-subtitle">Get help or suggest new features</p>
+        
+        <div class="support-container">
+            <div class="support-tabs">
+                <button class="support-tab active" data-tab="create">Create Ticket</button>
+                <button class="support-tab" data-tab="my-tickets">My Tickets</button>
+            </div>
+            
+            <div class="support-tab-content" id="createTab">
+                <div class="create-ticket-form">
+                    <div class="form-group">
+                        <label for="ticketType">Ticket Type</label>
+                        <select id="ticketType" class="form-input">
+                            <option value="appeal">Account Appeal</option>
+                            <option value="suggestion">Feature Suggestion</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ticketSubject">Subject</label>
+                        <input type="text" id="ticketSubject" class="form-input" placeholder="Brief description of your issue" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ticketMessage">Message</label>
+                        <textarea id="ticketMessage" class="form-input" rows="6" placeholder="Describe your issue or suggestion in detail" required></textarea>
+                    </div>
+                    
+                    <button class="auth-button" id="submitTicket">Submit Ticket</button>
+                </div>
+            </div>
+            
+            <div class="support-tab-content" id="my-ticketsTab" style="display: none;">
+                <div class="tickets-list" id="userTicketsList">
+                    <div class="loading-spinner">Loading your tickets...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="success-popup" id="successPopup"></div>
+
+    <script src="../js/support.js"></script>
+</body>
+</html>

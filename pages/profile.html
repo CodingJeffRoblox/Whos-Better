@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Who's Better?</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">Who's Better?</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="rankings.html" class="nav-link">Rankings</a>
+                <a href="trending.html" class="nav-link">Trending</a>
+                <a href="hall-of-fame.html" class="nav-link">Hall of Fame</a>
+                <a href="hall-of-shame.html" class="nav-link">Hall of Shame</a>
+                <a href="stats.html" class="nav-link">Stats</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                <a href="profile.html" class="nav-link active">Profile</a>
+                <a href="support.html" class="nav-link" id="supportLink" style="display: none;">Support</a>
+                <a href="admin.html" class="nav-link" id="adminLink" style="display: none;">Admin</a>
+            </div>
+            <div class="auth-section" id="authSection">
+                <a href="login.html" class="nav-link auth-link">Login</a>
+                <a href="signup.html" class="nav-link auth-link">Sign Up</a>
+            </div>
+            <div class="profile-card" id="profileCard" style="display: none;">
+                <div class="profile-info">
+                    <div class="profile-username" id="username">User</div>
+                    <div class="profile-level">Level <span id="userLevel">1</span></div>
+                    <div class="profile-xp"><span id="userXP">0</span> XP</div>
+                </div>
+                <div class="profile-streak">
+                    <span class="streak-icon">🔥</span>
+                    <span id="userStreak">0</span> Day Streak
+                </div>
+                <button class="logout-button" id="logoutButton">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 class="hero-title">👤 Your Profile</h1>
+        <p class="hero-subtitle">View your stats, achievements, and account information</p>
+        
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar-large">
+                    <span id="profileAvatar">U</span>
+                </div>
+                <div class="profile-header-info">
+                    <h2 id="profileUsername">Username</h2>
+                    <p id="profileEmail">email@example.com</p>
+                    <div class="profile-badges">
+                        <span class="status-badge" id="profileStatus">active</span>
+                        <span class="role-badge" id="profileRole">user</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-value" id="profileXP">0</div>
+                    <div class="stat-label">Total XP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="profileLevel">1</div>
+                    <div class="stat-label">Level</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🗳️</div>
+                    <div class="stat-value" id="profileVotes">0</div>
+                    <div class="stat-label">Total Votes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value" id="profileStreak">0</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Category Stats</h3>
+                <div class="category-stats">
+                    <div class="category-stat">
+                        <span class="category-icon">🎮</span>
+                        <span class="category-name">Gaming</span>
+                        <span class="category-votes" id="gamingVotes">0</span>
+                    </div>
+                    <div class="category-stat">
+                        <span class="category-icon">🎬</span>
+                        <span class="category-name">Movies</span>
+                        <span class="category-votes" id="moviesVotes">0</span>
+                    </div>
+                    <div class="category-stat">
+                        <span class="category-icon">🍕</span>
+                        <span class="category-name">Food</span>
+                        <span class="category-votes" id="foodVotes">0</span>
+                    </div>
+                    <div class="category-stat">
+                        <span class="category-icon">🚗</span>
+                        <span class="category-name">Cars</span>
+                        <span class="category-votes" id="carsVotes">0</span>
+                    </div>
+                    <div class="category-stat">
+                        <span class="category-icon">💻</span>
+                        <span class="category-name">Technology</span>
+                        <span class="category-votes" id="technologyVotes">0</span>
+                    </div>
+                    <div class="category-stat">
+                        <span class="category-icon">⚽</span>
+                        <span class="category-name">Sports</span>
+                        <span class="category-votes" id="sportsVotes">0</span>
+                    </div>
+                    <div class="category-stat">
+                        <span class="category-icon">🎵</span>
+                        <span class="category-name">Music</span>
+                        <span class="category-votes" id="musicVotes">0</span>
+                    </div>
+                    <div class="category-stat">
+                        <span class="category-icon">🎲</span>
+                        <span class="category-name">Random</span>
+                        <span class="category-votes" id="randomVotes">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Achievements</h3>
+                <div class="achievements-grid" id="achievementsGrid">
+                    <div class="achievement-badge locked" data-achievement="first-vote">
+                        <span class="badge-icon">🎯</span>
+                        <span class="badge-name">First Vote</span>
+                    </div>
+                    <div class="achievement-badge locked" data-achievement="10-votes">
+                        <span class="badge-icon">⭐</span>
+                        <span class="badge-name">10 Votes</span>
+                    </div>
+                    <div class="achievement-badge locked" data-achievement="100-votes">
+                        <span class="badge-icon">💎</span>
+                        <span class="badge-name">100 Votes</span>
+                    </div>
+                    <div class="achievement-badge locked" data-achievement="500-votes">
+                        <span class="badge-icon">🏆</span>
+                        <span class="badge-name">500 Votes</span>
+                    </div>
+                    <div class="achievement-badge locked" data-achievement="1000-votes">
+                        <span class="badge-icon">👑</span>
+                        <span class="badge-name">1000 Votes</span>
+                    </div>
+                    <div class="achievement-badge locked" data-achievement="gaming-expert">
+                        <span class="badge-icon">🎮</span>
+                        <span class="badge-name">Gaming Expert</span>
+                    </div>
+                    <div class="achievement-badge locked" data-achievement="food-expert">
+                        <span class="badge-icon">🍕</span>
+                        <span class="badge-name">Food Expert</span>
+                    </div>
+                    <div class="achievement-badge locked" data-achievement="movie-expert">
+                        <span class="badge-icon">🎬</span>
+                        <span class="badge-name">Movie Expert</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Account Settings</h3>
+                <div class="account-settings">
+                    <div class="setting-item">
+                        <span class="setting-label">Account Created</span>
+                        <span class="setting-value" id="accountCreated">-</span>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Last Visit</span>
+                        <span class="setting-value" id="lastVisit">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/profile.js"></script>
+</body>
+</html>
