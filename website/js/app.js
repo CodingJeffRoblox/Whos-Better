@@ -269,6 +269,10 @@ function showXPPopup() {
 }
 
 async function checkAchievements(category) {
+    if (!userData.achievements) {
+        userData.achievements = [];
+    }
+    
     const newAchievements = [];
     
     if (userData.totalVotes === 1 && !userData.achievements.includes('first-vote')) {
