@@ -1,7 +1,4 @@
-// Firebase config is already loaded from firebase-config.js
-const auth = firebase.auth();
-const db = firebase.database();
-
+// Firebase auth and db are already loaded from firebase-config.js
 let currentUser = null;
 
 auth.onAuthStateChanged((user) => {
