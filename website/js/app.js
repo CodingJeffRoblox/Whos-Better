@@ -198,6 +198,11 @@ async function vote(side) {
         const battle = battles[currentBattleIndex];
         const battleKey = `${battle.left}-vs-${battle.right}`;
         
+        // Initialize battleResults if it doesn't exist
+        if (!userData.battleResults) {
+            userData.battleResults = {};
+        }
+        
         // Update user data
         if (!userData.battleResults[battleKey]) {
             userData.battleResults[battleKey] = { left: 0, right: 0 };
@@ -327,17 +332,41 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        document.getElementById('leftVote').addEventListener('click', () => vote('left'));
-        document.getElementById('rightVote').addEventListener('click', () => vote('right'));
-        document.getElementById('submitBattleBtn').addEventListener('click', submitBattle);
+        const leftVoteBtn = document.getElementById('leftVote');
+        const rightVoteBtn = document.getElementById('rightVote');
+        
+        if (leftVoteBtn) {
+            leftVoteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                vote('left');
+            });
+        }
+        
+        if (rightVoteBtn) {
+            rightVoteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                vote('right');
+            });
+        }
+        
+        const submitBattleBtn = document.getElementById('submitBattleBtn');
+        if (submitBattleBtn) {
+            submitBattleBtn.addEventListener('click', submitBattle);
+        }
 
-        document.getElementById('leftOption').addEventListener('click', () => {
-            if (!isVoting) vote('left');
-        });
+        const leftOption = document.getElementById('leftOption');
+        if (leftOption) {
+            leftOption.addEventListener('click', () => {
+                if (!isVoting) vote('left');
+            });
+        }
 
-        document.getElementById('rightOption').addEventListener('click', () => {
-            if (!isVoting) vote('right');
-        });
+        const rightOption = document.getElementById('rightOption');
+        if (rightOption) {
+            rightOption.addEventListener('click', () => {
+                if (!isVoting) vote('right');
+            });
+        }
 
         initializeData();
     }, 100);
