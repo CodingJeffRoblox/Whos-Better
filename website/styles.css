@@ -152,6 +152,22 @@ body {
     animation: fadeIn 0.2s ease;
 }
 
+.dropdown-menu {
+    padding: 0.5rem 0;
+}
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+}
+
 .dropdown-item {
     display: block;
     color: var(--text-secondary);

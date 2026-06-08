@@ -108,8 +108,10 @@ function updateAuthUI(isLoggedIn) {
             });
         }
     } else {
-        authSection.style.display = 'flex';
-        profileCard.style.display = 'none';
+        const authSection = document.getElementById('authSection');
+        const profileCard = document.getElementById('profileCard');
+        if (authSection) authSection.style.display = 'flex';
+        if (profileCard) profileCard.style.display = 'none';
     }
 }
 

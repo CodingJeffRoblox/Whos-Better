@@ -1,15 +1,4 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyBSG1gnnUC0M77KL39zqWsetfnjnBaVJng",
-  authDomain: "who-s-better-27d26.firebaseapp.com",
-  databaseURL: "https://who-s-better-27d26-default-rtdb.firebaseio.com/",
-  projectId: "who-s-better-27d26",
-  storageBucket: "who-s-better-27d26.firebasestorage.app",
-  messagingSenderId: "583497129419",
-  appId: "1:583497129419:web:9d3216501c9741b6486a4e",
-  measurementId: "G-FMR841X7XC"
-};
-
-firebase.initializeApp(firebaseConfig);
+// Firebase config is already loaded from firebase-config.js
 const auth = firebase.auth();
 const db = firebase.database();
 
