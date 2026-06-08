@@ -62,25 +62,7 @@ const battles = [
     { left: "Coffee", right: "Energy Drink", category: "Random", leftColor: "#8b5cf6", rightColor: "#ef4444" }
 ];
 
-let userData = {
-    totalVotes: 0,
-    xp: 0,
-    level: 1,
-    streak: 0,
-    lastVisit: null,
-    categoryVotes: {
-        gaming: 0,
-        movies: 0,
-        food: 0,
-        cars: 0,
-        technology: 0,
-        sports: 0,
-        music: 0,
-        random: 0
-    },
-    achievements: [],
-    battleResults: {}
-};
+// userData is loaded from firebase-config.js
 
 function initializeData() {
     const stored = localStorage.getItem('whosBetterData');

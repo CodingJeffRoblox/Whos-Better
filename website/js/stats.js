@@ -63,7 +63,6 @@ const battles = [
 ];
 
 // userData is loaded from firebase-config.js
-let userData = null;
 
 const achievementDetails = {
     'first-vote': { icon: '🎯', name: 'First Vote' },

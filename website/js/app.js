@@ -113,7 +113,7 @@ function updateUI() {
 }
 
 function updateAchievements() {
-    if (!userData) return;
+    if (!userData || !userData.achievements) return;
     
     const achievements = document.querySelectorAll('.achievement-badge');
     
