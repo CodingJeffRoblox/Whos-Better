@@ -65,6 +65,7 @@ const battles = [
 let currentBattleIndex = 0;
 let isVoting = false;
 let globalBattleData = {};
+let usedBattles = new Set();
 
 async function initializeData() {
     globalBattleData = await loadGlobalBattleData();
@@ -122,6 +123,24 @@ function updateAchievements() {
 }
 
 function loadBattle() {
+    // Randomize battle selection
+    let battleIndex;
+    let attempts = 0;
+    const maxAttempts = battles.length * 2;
+    
+    do {
+        battleIndex = Math.floor(Math.random() * battles.length);
+        attempts++;
+        
+        // If we've used all battles, reset
+        if (usedBattles.size >= battles.length) {
+            usedBattles.clear();
+        }
+    } while (usedBattles.has(battleIndex) && attempts < maxAttempts);
+    
+    usedBattles.add(battleIndex);
+    currentBattleIndex = battleIndex;
+    
     const battle = battles[currentBattleIndex];
     
     document.getElementById('leftName').textContent = battle.left;
@@ -298,6 +317,7 @@ function showAchievementPopup(achievementId) {
 
 document.getElementById('leftVote').addEventListener('click', () => vote('left'));
 document.getElementById('rightVote').addEventListener('click', () => vote('right'));
+document.getElementById('submitBattleBtn').addEventListener('click', submitBattle);
 
 document.getElementById('leftOption').addEventListener('click', () => {
     if (!isVoting) vote('left');
@@ -308,3 +328,91 @@ document.getElementById('rightOption').addEventListener('click', () => {
 });
 
 initializeData();
+
+async function submitBattle() {
+    if (!currentUser) {
+        alert('Please log in to submit battles');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const leftItem = document.getElementById('leftItem').value.trim();
+    const rightItem = document.getElementById('rightItem').value.trim();
+    const category = document.getElementById('category').value;
+    const formMessage = document.getElementById('formMessage');
+
+    // Validation
+    if (!leftItem || !rightItem || !category) {
+        formMessage.textContent = 'Please fill in all fields';
+        formMessage.className = 'form-message error';
+        return;
+    }
+
+    if (leftItem.toLowerCase() === rightItem.toLowerCase()) {
+        formMessage.textContent = 'Left and right items cannot be the same';
+        formMessage.className = 'form-message error';
+        return;
+    }
+
+    // Content filtering - check for inappropriate content
+    const inappropriateWords = ['porn', 'sex', 'nude', 'naked', 'xxx', 'drugs', 'illegal', 'murder', 'kill', 'terrorism', 'bomb', 'weapon'];
+    const combinedText = (leftItem + ' ' + rightItem).toLowerCase();
+    
+    for (const word of inappropriateWords) {
+        if (combinedText.includes(word)) {
+            formMessage.textContent = 'This content is not allowed. Please submit appropriate content only.';
+            formMessage.className = 'form-message error';
+            return;
+        }
+    }
+
+    try {
+        const token = await currentUser.getIdToken();
+        
+        const response = await fetch(`${API_BASE_URL}/api/submit-battle`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                left: leftItem,
+                right: rightItem,
+                category: category
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            formMessage.textContent = data.message;
+            formMessage.className = 'form-message success';
+            
+            // Clear form
+            document.getElementById('leftItem').value = '';
+            document.getElementById('rightItem').value = '';
+            document.getElementById('category').value = '';
+            
+            // Add new battle to local battles array
+            const colors = ['#3b82f6', '#ef4444', '#22c55e', '#f97316', '#8b5cf6', '#ec4899', '#fbbf24', '#14b8a6'];
+            const emojis = ['⭐', '🎯', '🔥', '💎', '🏆', '⚡', '🎮', '🎬'];
+            
+            battles.push({
+                left: leftItem,
+                right: rightItem,
+                category: category,
+                leftColor: colors[Math.floor(Math.random() * colors.length)],
+                rightColor: colors[Math.floor(Math.random() * colors.length)],
+                leftEmoji: emojis[Math.floor(Math.random() * emojis.length)],
+                rightEmoji: emojis[Math.floor(Math.random() * emojis.length)]
+            });
+        } else {
+            formMessage.textContent = data.error || 'Failed to submit battle';
+            formMessage.className = 'form-message error';
+        }
+    } catch (error) {
+        console.error('Error submitting battle:', error);
+        formMessage.textContent = 'Failed to submit battle. Please try again.';
+        formMessage.className = 'form-message error';
+    }
+}

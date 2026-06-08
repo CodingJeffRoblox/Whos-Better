@@ -352,6 +352,62 @@ app.post('/api/tickets/:ticketId/messages', verifyToken, async (req, res) => {
     }
 });
 
+// Submit new battle
+app.post('/api/submit-battle', verifyToken, async (req, res) => {
+    try {
+        const { left, right, category } = req.body;
+        
+        // Validation
+        if (!left || !right || !category) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+        
+        if (left.toLowerCase() === right.toLowerCase()) {
+            return res.status(400).json({ error: 'Left and right items cannot be the same' });
+        }
+        
+        // Check for duplicate battles
+        const battleKey = `${left.toLowerCase()}-vs-${right.toLowerCase()}`;
+        const reverseBattleKey = `${right.toLowerCase()}-vs-${left.toLowerCase()}`;
+        
+        const battleSnapshot = await db.ref('battles').once('value');
+        const battles = battleSnapshot.val() || {};
+        
+        // Check if this battle already exists (in either direction)
+        for (const key in battles) {
+            const normalizedKey = key.toLowerCase();
+            if (normalizedKey === battleKey || normalizedKey === reverseBattleKey) {
+                return res.status(400).json({ error: 'This battle already exists on the site' });
+            }
+        }
+        
+        // Generate random colors and emoji for the new battle
+        const colors = ['#3b82f6', '#ef4444', '#22c55e', '#f97316', '#8b5cf6', '#ec4899', '#fbbf24', '#14b8a6'];
+        const emojis = ['⭐', '🎯', '🔥', '💎', '🏆', '⚡', '🎮', '🎬'];
+        
+        const newBattle = {
+            left: left,
+            right: right,
+            category: category,
+            leftColor: colors[Math.floor(Math.random() * colors.length)],
+            rightColor: colors[Math.floor(Math.random() * colors.length)],
+            leftEmoji: emojis[Math.floor(Math.random() * emojis.length)],
+            rightEmoji: emojis[Math.floor(Math.random() * emojis.length)],
+            submittedBy: req.user.uid,
+            submittedAt: admin.database.ServerValue.TIMESTAMP,
+            leftVotes: 0,
+            rightVotes: 0
+        };
+        
+        await db.ref('battles/' + battleKey).set(newBattle);
+        
+        res.json({ success: true, message: 'Battle submitted successfully!' });
+    } catch (error) {
+        console.error('Error submitting battle:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Close ticket (admin only)
 app.put('/api/admin/tickets/:ticketId/close', verifyToken, verifyAdmin, async (req, res) => {
     try {
