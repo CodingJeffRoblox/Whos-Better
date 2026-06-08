@@ -316,19 +316,27 @@ function showAchievementPopup(achievementId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('leftVote').addEventListener('click', () => vote('left'));
-    document.getElementById('rightVote').addEventListener('click', () => vote('right'));
-    document.getElementById('submitBattleBtn').addEventListener('click', submitBattle);
+    // Wait for Firebase to be initialized
+    setTimeout(() => {
+        if (typeof auth === 'undefined' || typeof db === 'undefined') {
+            console.error('Firebase not initialized');
+            return;
+        }
+        
+        document.getElementById('leftVote').addEventListener('click', () => vote('left'));
+        document.getElementById('rightVote').addEventListener('click', () => vote('right'));
+        document.getElementById('submitBattleBtn').addEventListener('click', submitBattle);
 
-    document.getElementById('leftOption').addEventListener('click', () => {
-        if (!isVoting) vote('left');
-    });
+        document.getElementById('leftOption').addEventListener('click', () => {
+            if (!isVoting) vote('left');
+        });
 
-    document.getElementById('rightOption').addEventListener('click', () => {
-        if (!isVoting) vote('right');
-    });
+        document.getElementById('rightOption').addEventListener('click', () => {
+            if (!isVoting) vote('right');
+        });
 
-    initializeData();
+        initializeData();
+    }, 100);
 });
 
 async function submitBattle() {
