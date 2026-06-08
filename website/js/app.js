@@ -315,19 +315,21 @@ function showAchievementPopup(achievementId) {
     popup.style.animation = 'achievementPopup 2s ease forwards';
 }
 
-document.getElementById('leftVote').addEventListener('click', () => vote('left'));
-document.getElementById('rightVote').addEventListener('click', () => vote('right'));
-document.getElementById('submitBattleBtn').addEventListener('click', submitBattle);
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('leftVote').addEventListener('click', () => vote('left'));
+    document.getElementById('rightVote').addEventListener('click', () => vote('right'));
+    document.getElementById('submitBattleBtn').addEventListener('click', submitBattle);
 
-document.getElementById('leftOption').addEventListener('click', () => {
-    if (!isVoting) vote('left');
+    document.getElementById('leftOption').addEventListener('click', () => {
+        if (!isVoting) vote('left');
+    });
+
+    document.getElementById('rightOption').addEventListener('click', () => {
+        if (!isVoting) vote('right');
+    });
+
+    initializeData();
 });
-
-document.getElementById('rightOption').addEventListener('click', () => {
-    if (!isVoting) vote('right');
-});
-
-initializeData();
 
 async function submitBattle() {
     if (!currentUser) {
