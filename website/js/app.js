@@ -102,6 +102,8 @@ async function checkStreak() {
 }
 
 function updateUI() {
+    if (!userData) return;
+    
     document.getElementById('userLevel').textContent = userData.level;
     document.getElementById('userXP').textContent = userData.xp;
     document.getElementById('userStreak').textContent = userData.streak;
@@ -111,6 +113,8 @@ function updateUI() {
 }
 
 function updateAchievements() {
+    if (!userData) return;
+    
     const achievements = document.querySelectorAll('.achievement-badge');
     
     achievements.forEach(badge => {
